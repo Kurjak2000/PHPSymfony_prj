@@ -61,17 +61,17 @@ class Article
      * @ORM\OneToOne(targetEntity="Massimo\BlogBundle\Entity\Image", cascade={"persist","remove"})
      * @ORM\JoinColumn(nullable=true)
      */
-    public $image;
+    private $image;
     
     /**
      * @ORM\ManyToMany(targetEntity="Massimo\BlogBundle\Entity\Categorie")
      */
-	public $categories;
+	private $categories;
 
 	/**
 	 * @ORM\OneToMany(targetEntity="Massimo\BlogBundle\Entity\Commentaire", mappedBy="article", cascade={"persist","remove"})
 	 */
-	public $commentaires;
+	private $commentaires;
 	
 	
     public function __construct() {

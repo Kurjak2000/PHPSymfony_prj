@@ -8,6 +8,7 @@ use Massimo\BlogBundle\Entity\Categorie;
 use Massimo\BlogBundle\Entity\Commentaire;
 use Massimo\BlogBundle\Entity\Image;
 use Massimo\BlogBundle\Form\ArticleType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class BlogController extends Controller
 {
@@ -24,6 +25,11 @@ class BlogController extends Controller
         return $this->render('MassimoBlogBundle:Blog:index.html.twig', array('articles' => $articles));
     }
     
+	/**
+	 * 
+	 * @param unknown $id
+	 * @template("MassimoBlogBundle:Blog:view.html.twig")
+	 */
     public function viewAction($id)
     {
     	$article = $this->getDoctrine()
@@ -32,7 +38,7 @@ class BlogController extends Controller
     	//->find($id);
     	->getArticle($id);
     	
-    	return $this->render('MassimoBlogBundle:Blog:view.html.twig', array('article' => $article));
+    	return  array('article' => $article);
     }
     
     public function addAction()
