@@ -1,0 +1,25 @@
+{% extends "MassimoBlogBundle::layout2level.html.twig" %}
+
+{% block title %}{{ parent() }} - Article {{ article.id }} {% endblock %}
+
+{% block subBlog_body %} 
+   <div class="page-header">
+   	{% if article.image != null %}
+   	  <img src="{{asset('images/')}}{{article.image.url}}">
+    {% endif %}
+   
+      <h1> Title {{ article.title }} </h1>
+      {{ article.contenu }}
+      
+      <br><br><br>
+      
+      {% for commentaire in article.commentaires %}
+      {{ commentaire.contenu}} <br>
+      autore: {{ commentaire.auteur}}
+      {% endfor %}
+      
+      {% for categorie in article.categorie %}
+      <h3> {{ categorie.nom }} </h3>
+      {% endfor %} 
+   </div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "MassimoBlogBundle::layout2level.html.twig" %}
+
+{% block title %}{{ parent() }} - Index {% endblock %}
+
+{% block subBlog_body %} 
+   <div class="page-header">
+      <h1> All Articles </h1>
+      
+      {% for article in articles %}
+      <div class="article">
+         	{% if article.image != null %}
+   	     	<img src="{{asset('images/')}}{{article.image.url}}">
+         	{% endif %}
+         	
+            <h2> Title {{ article.title }} </h2>
+            {{ article.contenu }}
+      
+            <br>
+      
+            {% for categorie in article.categorie %}
+                  <h3> {{ categorie.nom }} </h3>
+            {% endfor %} 
+      </div>
+      {% endfor %}
+   </div>
+{% endblock %}

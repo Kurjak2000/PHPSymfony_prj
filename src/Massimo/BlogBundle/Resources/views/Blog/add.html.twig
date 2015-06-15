@@ -1,0 +1,14 @@
+{% extends "MassimoBlogBundle::layout2level.html.twig" %}
+
+{% block title %}{{ parent() }} - New Article {% endblock %}
+
+
+{% block subBlog_body %} 
+   <div class="page-header">
+      
+	{% include "MassimoBlogBundle:Blog:form.html.twig" %}
+	
+	
+	
+   </div>
+{% endblock %}

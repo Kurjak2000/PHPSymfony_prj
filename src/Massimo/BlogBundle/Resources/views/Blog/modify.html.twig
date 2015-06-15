@@ -1,0 +1,23 @@
+{% extends "MassimoBlogBundle::layout2level.html.twig" %}
+
+{% block title %}{{ parent() }} - Modify Article {% endblock %}
+
+
+
+{% block subBlog_body %} 
+   <div class="page-header">
+      <h1> Modify Article </h1>
+      
+      {% include "MassimoBlogBundle:Blog:form.html.twig" %}
+      
+      <form name="form_add_commentary" method="post" >
+            <input type="submit" name="button_add_commentary" value="Add Commentary" />
+      </form>
+      
+      <?php
+            if(isset($_POST['button_add_commentary']))
+                  echo addCommentaireAction();
+      ?>
+      
+   </div>
+{% endblock %}

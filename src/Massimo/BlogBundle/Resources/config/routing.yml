@@ -1,0 +1,27 @@
+massimo_default_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: MassimoBlogBundle:Default:index }
+    
+massimo_blog_homepage:
+    path:     /blog/{page} #({page}) e' il valore atteso
+    defaults: { _controller: MassimoBlogBundle:Blog:index, page: 1 } 
+    #(page: 1) dichiara il valore di default
+    requirements:
+        page: \d+	
+        #restrizioni sul valore atteso (d+ = sequenza di numeri)
+        
+massimo_blog_view:
+    path:     /blog/article/{id}
+    defaults: {_controller: MassimoBlogBundle:Blog:view }
+    requirements:
+        id: \d+
+        
+massimo_blog_add:
+    path:     /blog/add
+    defaults: {_controller: MassimoBlogBundle:Blog:add }
+    
+massimo_blog_modify:
+    path:     /blog/modify/{id}
+    defaults: {_controller: MassimoBlogBundle:Blog:modify }
+    requirements:
+        id: \d+
