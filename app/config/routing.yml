@@ -5,3 +5,8 @@ massimo_blog:
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+
+#routes de mon blog
+blog:
+    resource: "@MassimoBlogBundle/Controller/"
+    type:     annotation
