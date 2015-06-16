@@ -23,7 +23,7 @@
     <![endif]-->
   </head>
   <body>
-    <h1>Hello, world!</h1>
+    <h1>Montpellier News</h1>
     
     <nav class="navbar navbar-inverse">
        <ul class="nav navbar-nav">
@@ -31,7 +31,7 @@
        	   <li><a href="{{ path('massimo_blog_view', {id:1}) }}">View</a></li>
            <li><a href="{{ path('massimo_blog_add') }}">AddArticle</a></li>
            <li><a href="{{ path('massimo_blog_modify', {id:1}) }}">ModifyArticle</a></li>
-       	   <li><a href="#">Exit</a></li>
+       	   <li><a href="{{ path('massimo_blog_delete') }}">DeleteArticle</a></li>
        </ul>
     </nav>
     

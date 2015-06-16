@@ -25,3 +25,7 @@ massimo_blog_modify:
     defaults: {_controller: MassimoBlogBundle:Blog:modify }
     requirements:
         id: \d+
+        
+massimo_blog_delete:
+    path:     /blog/delete
+    defaults: {_controller: MassimoBlogBundle:Blog:delete }

@@ -1,0 +1,17 @@
+{% extends "MassimoBlogBundle::layout2level.html.twig" %}
+
+{% block title %}{{ parent() }} - DELETE Article {% endblock %}
+
+{% block subBlog_body %} 
+   <div class="page-header">
+               
+      <fieldset>
+          <form  method="post" {{ form_enctype(form) }}>
+              {{ form_widget(form) }}
+              <input type="submit" class"btn btn-primary" value="Delete" name="submit" />
+              <input type="submit" class"btn btn-annulle" value="Annule" name="submit"/>
+          </form>
+      </fieldset>
+       
+   </div>
+{% endblock %}

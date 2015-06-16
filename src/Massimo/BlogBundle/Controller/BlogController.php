@@ -8,6 +8,7 @@ use Massimo\BlogBundle\Entity\Categorie;
 use Massimo\BlogBundle\Entity\Commentaire;
 use Massimo\BlogBundle\Entity\Image;
 use Massimo\BlogBundle\Form\ArticleType;
+use Massimo\BlogBundle\Form\DeleteArticleType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class BlogController extends Controller
@@ -28,7 +29,7 @@ class BlogController extends Controller
 	/**
 	 * 
 	 * @param unknown $id
-	 * @template("MassimoBlogBundle:Blog:view.html.twig")
+	 * @Template("MassimoBlogBundle:Blog:view.html.twig")
 	 */
     public function viewAction($id)
     {
@@ -161,6 +162,41 @@ class BlogController extends Controller
     	}
     	
     	return $this->render('MassimoBlogBundle:Blog:modify.html.twig', array('form'=>$form->createView()));
+    }
+    
+    public function deleteAction()
+    {	 
+    	$form = $this->createForm(new DeleteArticleType);
+    	 
+    	$request = $this->getRequest();
+    	if ($request->getMethod() == "POST" ) {
+    		$form->handleRequest($request);
+    		 
+    		if ($form->isValid()) {
+    			//if( $request->get("submit")=="delete");
+    			$entityManager = $this->getDoctrine()->getManager();
+
+
+    			$article = $this->getDoctrine()
+    			->getManager()
+    			->getRepository('MassimoBlogBundle:Article')
+    			//->getArticle($request->get("massimo_blogbundle_deletearticle[article]"));
+    			->getArticle($request->request->get('article'));
+    			
+    			//print_r($article); die();
+    			
+    			try {
+    				$entityManager->remove($article);
+    				$entityManager->flush();
+    				
+    				$this->redirectToRoute("massimo_blog_homepage");
+    			} catch (Exception $e) {
+    					
+    			}
+    		}
+    	}
+    	 
+    	return $this->render('MassimoBlogBundle:Blog:delete.html.twig', array('form'=>$form->createView()));
     }
     
     public function menuAction()
