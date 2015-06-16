@@ -3,6 +3,7 @@
 namespace Massimo\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 //use Massimo\BlogBundle\Entity\Commentaire;
 
 /**
@@ -26,6 +27,7 @@ class Article
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Assert\Length(min=4, minMessage="Le titre doit faire au moins {{ limit }} caractères.")
      */
     private $title;
 
@@ -33,6 +35,7 @@ class Article
      * @var string
      *
      * @ORM\Column(name="contenu", type="text")
+     * @Assert\Length(min=20, minMessage="Le contenu doit faire au moins {{ limit }} caractères.")
      */
     private $contenu;
 
@@ -40,6 +43,7 @@ class Article
      * @var string
      *
      * @ORM\Column(name="auteur", type="string", length=255, nullable=true)
+     * @Assert\Length(min=2, minMessage="L'auteur doit donner au moins les initiales.")
      */
     private $auteur;
 
@@ -47,6 +51,7 @@ class Article
      * @var \DateTime
      *
      * @ORM\Column(name="datecreation", type="datetime")
+     * @Assert\DateTime()
      */
     private $datecreation;
     
@@ -73,6 +78,10 @@ class Article
 	 */
 	private $commentaires;
 	
+	/**
+	 * @ORM\Column(name="slug", type="string", length=255)
+	 */
+	private $slug;
 	
     public function __construct() {
     	$this->datecreation = new \DateTime();
@@ -324,5 +333,28 @@ class Article
     public function getCommentaires()
     {
         return $this->commentaires;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Article
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

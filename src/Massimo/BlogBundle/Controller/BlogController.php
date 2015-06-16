@@ -199,6 +199,29 @@ class BlogController extends Controller
     	return $this->render('MassimoBlogBundle:Blog:delete.html.twig', array('form'=>$form->createView()));
     }
     
+    public function testAction() 
+    {
+    	$article = new Article;
+    
+    	$article->setDate(new \Datetime());  // Champ « date » OK  
+    	$article->setTitle('abc');           // Champ « title » incorrect : moins de 10 caractères   
+    	$article->setContent('blabla');    // Champ « content » incorrect : on ne le définit pas
+    	$article->setAuthor('AB');            // Champ « author » incorrect : moins de 2 caractères
+    
+    	// On récupère le service validator
+    	$validator = $this->get('validator');
+
+    	// On déclenche la validation sur notre object
+    	$listErrors = $validator->validate($article);
+    
+    	// Si le tableau n'est pas vide, on affiche les erreurs
+    	if(count($listErrors) > 0) {
+    		return new Response(print_r($listErrors, true));
+    	} else {
+    		return new Response("L'article est valide !");
+    	}
+    }
+    
     public function menuAction()
     {
     	$articles = array(

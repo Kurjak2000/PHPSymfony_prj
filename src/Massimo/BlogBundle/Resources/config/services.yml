@@ -2,3 +2,6 @@ services:
 #    massimo_blog.example:
 #        class: Massimo\BlogBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
+
+    massimo_blog.slugger:
+        class: Massimo\BlogBundle\Service\Slugger
