@@ -3,6 +3,7 @@
 namespace Massimo\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 //use Massimo\BlogBundle\Entity\Commentaire;
 
 /**
@@ -26,6 +27,7 @@ class Article
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Assert\Length(min=4, minMessage="Le titre doit faire au moins {{ limit }} caractères.")
      */
     private $title;
 
@@ -33,6 +35,7 @@ class Article
      * @var string
      *
      * @ORM\Column(name="contenu", type="text")
+     * @Assert\Length(min=20, minMessage="Le contenu doit faire au moins {{ limit }} caractères.")
      */
     private $contenu;
 
@@ -40,6 +43,7 @@ class Article
      * @var string
      *
      * @ORM\Column(name="auteur", type="string", length=255, nullable=true)
+     * @Assert\Length(min=2, minMessage="L'auteur doit donner au moins les initiales.")
      */
     private $auteur;
 
@@ -47,6 +51,7 @@ class Article
      * @var \DateTime
      *
      * @ORM\Column(name="datecreation", type="datetime")
+     * @Assert\DateTime()
      */
     private $datecreation;
     
@@ -61,18 +66,22 @@ class Article
      * @ORM\OneToOne(targetEntity="Massimo\BlogBundle\Entity\Image", cascade={"persist","remove"})
      * @ORM\JoinColumn(nullable=true)
      */
-    public $image;
+    private $image;
     
     /**
      * @ORM\ManyToMany(targetEntity="Massimo\BlogBundle\Entity\Categorie")
      */
-	public $categories;
+	private $categories;
 
 	/**
 	 * @ORM\OneToMany(targetEntity="Massimo\BlogBundle\Entity\Commentaire", mappedBy="article", cascade={"persist","remove"})
 	 */
-	public $commentaires;
+	private $commentaires;
 	
+	/**
+	 * @ORM\Column(name="slug", type="string", length=255)
+	 */
+	private $slug;
 	
     public function __construct() {
     	$this->datecreation = new \DateTime();
@@ -235,5 +244,94 @@ class Article
      */
     public function getCategorie () {
     	return $this->categories;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \Massimo\BlogBundle\Entity\Image $image
+     * @return Article
+     */
+    public function setImage(\Massimo\BlogBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \Massimo\BlogBundle\Entity\Image 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Add categories
+     *
+     * @param \Massimo\BlogBundle\Entity\Categorie $categories
+     * @return Article
+     */
+    public function addCategory(\Massimo\BlogBundle\Entity\Categorie $categories)
+    {
+        $this->categories[] = $categories;
+
+        return $this;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param \Massimo\BlogBundle\Entity\Categorie $categories
+     */
+    public function removeCategory(\Massimo\BlogBundle\Entity\Categorie $categories)
+    {
+        $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * Add commentaires
+     *
+     * @param \Massimo\BlogBundle\Entity\Commentaire $commentaires
+     * @return Article
+     */
+    public function addCommentaire(\Massimo\BlogBundle\Entity\Commentaire $commentaires)
+    {
+        $this->commentaires[] = $commentaires;
+
+        return $this;
+    }
+
+    /**
+     * Remove commentaires
+     *
+     * @param \Massimo\BlogBundle\Entity\Commentaire $commentaires
+     */
+    public function removeCommentaire(\Massimo\BlogBundle\Entity\Commentaire $commentaires)
+    {
+        $this->commentaires->removeElement($commentaires);
+    }
+
+    /**
+     * Get commentaires
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCommentaires()
+    {
+        return $this->commentaires;
     }
 }

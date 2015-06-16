@@ -12,6 +12,7 @@
                 <th>Auteur</th>
                 <th>Datecreation</th>
                 <th>Publication</th>
+                <th>Slug</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -24,10 +25,14 @@
                 <td>{{ entity.auteur }}</td>
                 <td>{% if entity.datecreation %}{{ entity.datecreation|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ entity.publication }}</td>
+                <td>{{ entity.slug }}</td>
                 <td>
                 <ul>
                     <li>
                         <a href="{{ path('article_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('article_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
                 </td>
@@ -36,4 +41,11 @@
         </tbody>
     </table>
 
+        <ul>
+        <li>
+            <a href="{{ path('article_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
     {% endblock %}

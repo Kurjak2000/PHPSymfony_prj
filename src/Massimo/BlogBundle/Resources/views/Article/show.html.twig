@@ -29,6 +29,10 @@
                 <th>Publication</th>
                 <td>{{ entity.publication }}</td>
             </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ entity.slug }}</td>
+            </tr>
         </tbody>
     </table>
 
@@ -38,5 +42,11 @@
             Back to the list
         </a>
     </li>
+    <li>
+        <a href="{{ path('article_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
 </ul>
 {% endblock %}
