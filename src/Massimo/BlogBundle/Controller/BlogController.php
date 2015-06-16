@@ -10,6 +10,7 @@ use Massimo\BlogBundle\Entity\Image;
 use Massimo\BlogBundle\Form\ArticleType;
 use Massimo\BlogBundle\Form\DeleteArticleType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Massimo\BlogBundle\Serive\Slugger;
 
 class BlogController extends Controller
 {
@@ -29,16 +30,11 @@ class BlogController extends Controller
 	/**
 	 * 
 	 * @param unknown $id
+	 * @Route("/Article/{slug}", name="massimo_blog_view_slug")
 	 * @Template("MassimoBlogBundle:Blog:view.html.twig")
 	 */
-    public function viewAction($id)
-    {
-    	$article = $this->getDoctrine()
-    	->getManager()
-    	->getRepository('MassimoBlogBundle:Article')
-    	//->find($id);
-    	->getArticle($id);
-    	
+    public function viewAction(Article $article)
+    { 	
     	return  array('article' => $article);
     }
     
@@ -67,6 +63,10 @@ class BlogController extends Controller
 			$form->handleRequest($request);
 			
 			if ($form->isValid()) {
+				$slugger = $this->get('massimo_blog.slugger');
+				$slug = $slugger->getSlug($article->getTitle());
+				$article->setSlug($slug);				
+				
 				$entityManager = $this->getDoctrine()->getManager();
 				$entityManager->persist($article);
 				
@@ -150,6 +150,10 @@ class BlogController extends Controller
     		$form->handleRequest($request);
     			
     		if ($form->isValid()) {
+    			$slugger = $this->get('massimo_blog.slugger');
+    			$slug = $slugger->getSlug($article->getTitle());
+    			$article->setSlug($slug);
+    			
     			$entityManager = $this->getDoctrine()->getManager();
     			$entityManager->persist($article);
     	
